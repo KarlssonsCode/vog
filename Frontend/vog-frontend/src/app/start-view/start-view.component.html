@@ -1,1 +1,27 @@
-<p>start-view works!</p>
+<div class="container game-card-layout">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let game of startPageGames">
+      <div class="card mb-4">
+        <img
+          [src]="game.background_image"
+          class="card-img-top image-container"
+          alt="Game Image"
+          (click)="handleImageClick(game)"
+          (keydown.enter)="handleImageClick(game)"
+          (keyup.enter)="handleImageClick(game)"
+          tabindex="0" />
+        <div class="card-body">
+          <h5 class="card-title">{{ game.name }}</h5>
+          <p class="card-text">Released: {{ game.released }}</p>
+          <p class="card-text">Rating: {{ game.metacritic }}</p>
+          <button>Add to backlog</button>
+          <button>Add to list</button>
+          <button>Review</button>
+          <button class="btn btn-primary" (click)="showGameModal(game)">
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

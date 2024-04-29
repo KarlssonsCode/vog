@@ -1,0 +1,14 @@
+.custom-modal {
+  position: fixed; /* Ensures the modal covers the entire viewport */
+  top: 0; /* Aligns the modal to the top of the viewport */
+  left: 0; /* Aligns the modal to the left of the viewport */
+  width: 100%; /* Makes the modal span the entire width of the viewport */
+  height: 100%; /* Makes the modal span the entire height of the viewport */
+  background: linear-gradient(to bottom, #f2f2f2, #ff0808);
+  overflow: auto; /* Enables scrolling if modal content overflows */
+}
+.modal-content {
+  padding: 10px;
+  width: 80%; /* Adjust the width as needed */
+  margin: auto; /* Centers the modal horizontally */
+}

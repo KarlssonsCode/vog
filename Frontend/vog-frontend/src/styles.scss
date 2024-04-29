@@ -3,3 +3,12 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import '../src/app/styling/styling.scss';
+
+body {
+    font-family: 'DM Sans';
+}
+
+.custom-margin {
+    margin-left: 20px;
+    margin-right: 20px;
+}

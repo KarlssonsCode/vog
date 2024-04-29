@@ -1,0 +1,17 @@
+.game-card-layout {
+    margin-top: 50px;
+
+}
+
+.image-container {
+    width: 100%;
+    height: 250px; /* Adjust the height as needed */
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer; /* If you want to make the image clickable */
+  }
