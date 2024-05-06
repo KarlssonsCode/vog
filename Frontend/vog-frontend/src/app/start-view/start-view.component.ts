@@ -4,6 +4,7 @@ import { RawgGame } from '../../rawg-service';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../components/modal/modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-start-view',
@@ -13,11 +14,12 @@ import { ModalComponent } from '../components/modal/modal.component';
   styleUrl: './start-view.component.scss',
 })
 export class StartViewComponent implements OnInit {
-  startPageGames: RawgGame[] = []; // Initialize as an empty array
+  startPageGames: RawgGame[] = [];
 
   constructor(
     private rawgService: RawgService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -38,5 +40,9 @@ export class StartViewComponent implements OnInit {
 
   handleImageClick(game: RawgGame) {
     return game;
+  }
+
+  navigateToGameDetails(slug: string) {
+    this.router.navigate(['/game-details', slug]);
   }
 }

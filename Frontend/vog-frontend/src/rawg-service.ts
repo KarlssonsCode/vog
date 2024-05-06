@@ -8,4 +8,12 @@ export interface RawgGame {
   background_image: string;
   rating: number;
   metacritic: number;
+  description_raw: string;
+  slug: string;
+  short_screenshots: ShortScreenshot[];
+}
+
+export interface ShortScreenshot {
+  id: number;
+  image: string;
 }

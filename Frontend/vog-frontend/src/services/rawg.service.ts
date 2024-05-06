@@ -19,4 +19,9 @@ export class RawgService {
       .get<{ results: RawgGame[] }>(gamesUrl)
       .pipe(map(response => response.results));
   }
+
+  getGameDetails(slug: string): Observable<RawgGame> {
+    const url = `${this.API_URL}games/${slug}?key=${this.API_KEY}`;
+    return this.http.get<RawgGame>(url);
+  }
 }

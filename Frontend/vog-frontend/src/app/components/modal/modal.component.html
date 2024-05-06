@@ -1,13 +1,62 @@
-<div
-  class="modal-dialog modal-xl custom-modal"
-  style="background-image: url('{{ game.background_image }}');">
+<div class="modal-dialog modal-lg">
   <div class="modal-content">
-    <h1>{{ game.name }}</h1>
-  </div>
-  <h5>{{ game.released }}</h5>
-  <div>
-    <button>Add to backlog</button>
-    <button>Add to list</button>
-    <button>Review</button>
+    <div class="modal-header">
+      <h1>{{ game.name }}</h1>
+    </div>
+    <div class="modal-body">
+      <p>{{ game.released }}</p>
+      <!-- Bootstrap Carousel -->
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button
+            *ngFor="let screenshot of game.short_screenshots; let i = index"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            [attr.data-bs-slide-to]="i"
+            [class.active]="i === 0"
+            [attr.aria-current]="i === 0 ? 'true' : null"
+            [attr.aria-label]="'Slide ' + (i + 1)"></button>
+        </div>
+        <div class="carousel-inner">
+          <div
+            *ngFor="let screenshot of game.short_screenshots; let i = index"
+            class="carousel-item"
+            [class.active]="i === 0">
+            <img
+              [src]="screenshot.image"
+              class="d-block w-100"
+              alt="Screenshot {{ i + 1 }}" />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <!-- End of Bootstrap Carousel -->
+      <h5>{{ game.metacritic }}</h5>
+      <p>{{ game.description_raw }}</p>
+    </div>
+    <div class="modal-footer">
+      <button>Add to backlog</button>
+      <button>Add to list</button>
+      <button>Review</button>
+      <button>Close</button>
+    </div>
   </div>
 </div>
