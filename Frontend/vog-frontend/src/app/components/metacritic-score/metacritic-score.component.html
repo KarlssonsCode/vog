@@ -1,0 +1,11 @@
+<span
+  class="badge"
+  [ngClass]="{
+    bad: gradingType === 'bad',
+    good: gradingType === 'good',
+    great: gradingType === 'great',
+    excellent: gradingType === 'excellent',
+    unrated: gradingType === 'unrated'
+  }">
+  {{ metacritic }}
+</span>

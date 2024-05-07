@@ -1,0 +1,25 @@
+$bad: #ff6874;
+$good: #ffbd3f;
+$great: #00ce7a;
+$excellent: #77ffff;
+$notRated: gray; 
+
+.bad {
+    background-color: #ff6874;
+  }
+  
+  .good {
+    background-color: #ffbd3f;
+  }
+  
+  .great {
+    background-color: #00ce7a;
+  }
+  
+  .excellent {
+    background-color:#75caff;
+  }
+  
+  .unrated {
+    background-color: gray; 
+  }

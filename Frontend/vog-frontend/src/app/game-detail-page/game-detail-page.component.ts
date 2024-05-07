@@ -3,11 +3,12 @@ import { RawgGame } from '../../rawg-service';
 import { RawgService } from '../../services/rawg.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MetacriticScoreComponent } from '../components/metacritic-score/metacritic-score.component';
 
 @Component({
   selector: 'app-game-detail-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MetacriticScoreComponent],
   templateUrl: './game-detail-page.component.html',
   styleUrl: './game-detail-page.component.scss',
 })

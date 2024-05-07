@@ -24,9 +24,30 @@
         class="form-control me-2"
         type="search"
         placeholder="Search"
-        aria-label="Search" />
-      <button class="btn btn-outline-light" type="submit">Search</button>
+        aria-label="Search"
+        (input)="onInputChange($event)" />
+      <div class="dropdown" *ngIf="showDropdown && searchResults.length > 0">
+        <button
+          class="btn btn-outline-light dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Select a game
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li *ngFor="let game of searchResults">
+            <a
+              class="dropdown-item"
+              href="#"
+              (click)="navigateToGameDetails(game.slug)"
+              >{{ game.name }}</a
+            >
+          </li>
+        </ul>
+      </div>
     </form>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">

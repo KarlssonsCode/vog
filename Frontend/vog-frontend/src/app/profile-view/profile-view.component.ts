@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './profile-view.component.html',
-  styleUrl: './profile-view.component.scss'
+  styleUrl: './profile-view.component.scss',
 })
-export class ProfileViewComponent {
-
-}
+export class ProfileViewComponent {}
