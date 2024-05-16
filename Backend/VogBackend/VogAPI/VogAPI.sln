@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VogAPI", "VogAPI\VogAPI.csproj", "{3D3E88E5-CB72-41DF-BE78-BA333B3B113E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D3E88E5-CB72-41DF-BE78-BA333B3B113E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3E88E5-CB72-41DF-BE78-BA333B3B113E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3E88E5-CB72-41DF-BE78-BA333B3B113E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3E88E5-CB72-41DF-BE78-BA333B3B113E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45EA381D-CB2F-4722-83F9-6C474CE7FFFD}
+	EndGlobalSection
+EndGlobal
