@@ -20,9 +20,23 @@
     <div class="row mt-3">
       <div class="col-12 d-flex justify-content-end">
         <div class="btn-group">
-          <button type="button" class="btn btn-outline-dark">
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            (click)="
+              addToBacklog(
+                userId!,
+                game.id,
+                game.name,
+                game.background_image,
+                game.released,
+                game.description_raw,
+                game.metacritic
+              )
+            ">
             Add to backlog
           </button>
+
           <button type="button" class="btn btn-outline-dark">Review</button>
           <div class="btn-group" role="group">
             <button

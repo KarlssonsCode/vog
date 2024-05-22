@@ -63,8 +63,35 @@
             >Toplist</a
           >
         </li>
+        <li>
+          <a class="nav-link active" aria-current="page" href="profile">{{
+            userName
+          }}</a>
+        </li>
       </ul>
-      <a href="profile"
+      <form class="d-flex" (submit)="onSubmit(loginForm)" #loginForm="ngForm">
+        <div class="input-group me-2">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Email"
+            id="email"
+            ngModel
+            name="email"
+            required />
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            id="password"
+            ngModel
+            name="password"
+            required />
+          <button class="btn btn-outline-light" type="submit">Login</button>
+        </div>
+      </form>
+
+      <!-- <a href="profile"
         >Profile
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +103,7 @@
           <path
             d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
         </svg>
-      </a>
+      </a> -->
     </div>
   </div>
 </nav>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { UserClient } from '../vog-api';
+import { GetUserResponse, UserClient } from '../vog-api';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,13 @@ export class UserService {
 
   constructor(private userClient: UserClient) {
     this.loadUser();
+  }
+
+  login(email: string, password: string): Observable<GetUserResponse> {
+    console.log(`UserService: login called with email: ${email}`);
+    return this.userClient
+      .loginByEmailAndPassword(email, password)
+      .pipe(tap(response => console.log('API response', response)));
   }
 
   private loadUser() {
@@ -41,23 +48,8 @@ export class UserService {
     localStorage.setItem('userName', value);
   }
 
-  getUserById(userId: number): Observable<void> {
-    return this.userClient
-      .userGET2(userId)
-      .pipe(tap(response => console.log('API response:', response)));
-  }
-
   setUser(id: number, name: string) {
     this.userId = id;
     this.userName = name;
   }
-
-  // clearUser() {
-  //   this.userId = null;
-  //   this.userName = '';
-  //   this.bookedAndReportedActivities = [];
-  //   localStorage.removeItem('userId');
-  //   localStorage.removeItem('userName');
-  //   localStorage.removeItem('bookedAndReportedActivities');
-  // }
 }
