@@ -2,6 +2,7 @@
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace PresentationLayer.Controllers
 {
@@ -42,8 +43,11 @@ namespace PresentationLayer.Controllers
         //[Route("GetUserBacklog")]
         //public async Task<IActionResult> GetUserBacklog(int userId)
         //{
-        //    var backlogGames = await _backlogService.GetUserBacklog(userId);
-        //    return Ok(backlogGames);
+        //    var backlogResponse = await _backlogService.GetUserBacklogAsync(userId);
+        //    var backlogList = await backlogResponse.ToListAsync();
+        //    return Ok(backlogList);
         //}
+        
+
     }
 }

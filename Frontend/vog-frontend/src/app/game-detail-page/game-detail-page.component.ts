@@ -58,6 +58,9 @@ export class GameDetailPageComponent implements OnInit {
       description: description,
       metacritic: metacritic,
     };
-    this.backlogService.addToBacklog(backlogRequest);
+    console.log(backlogRequest);
+    this.backlogService.addGameToBacklog(backlogRequest).subscribe(response => {
+      console.log('Game added to backlog', response);
+    });
   }
 }

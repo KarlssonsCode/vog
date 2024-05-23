@@ -14,6 +14,6 @@ namespace BusinessLogicLayer.Interfaces
         //Task<Backlog> AddGameToBacklog(int userId, int rawgId, string rawgTitle, string backgroundImage, string releaseDate, string description, int? metacritic);
         Task AddGameToBacklogAsync(CreateBacklogRequest backlogRequest);
         Task <bool>DeleteGameFromBacklog(int backlogId);
-        //Task<GetBacklogResponse> GetUserBacklog(int userId);
+        //Task<IQueryable<GetBacklogResponse>> GetUserBacklogAsync(int userId);
     }
 }

@@ -12,6 +12,6 @@ namespace DataAccessLayer.Interface
         //Task<Backlog> AddGameToBacklog(Backlog backlog);
         Task AddGameToBacklogAsync(Backlog backlog);
         Task <bool>DeleteGameFromBacklogAsync(int backlogId);
-        //Task<Backlog> GetUserBacklog(int userId);
+        Task<Backlog> GetUserBacklog(int userId);
     }
 }

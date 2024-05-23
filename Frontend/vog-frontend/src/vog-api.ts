@@ -146,7 +146,7 @@ export class GameClient {
      * @param body (optional) 
      * @return Success
      */
-    gamePost(body: Game | undefined): Observable<void> {
+    gamePOST(body: Game | undefined): Observable<void> {
         let url_ = this.baseUrl + "/Game";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -162,11 +162,11 @@ export class GameClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGamePost(response_);
+            return this.processGamePOST(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGamePost(response_ as any);
+                    return this.processGamePOST(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -175,7 +175,7 @@ export class GameClient {
         }));
     }
 
-    protected processGamePost(response: HttpResponseBase): Observable<void> {
+    protected processGamePOST(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -197,7 +197,7 @@ export class GameClient {
     /**
      * @return Success
      */
-    gameGet(): Observable<void> {
+    gameGET(): Observable<void> {
         let url_ = this.baseUrl + "/Game";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -209,11 +209,11 @@ export class GameClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGameGet(response_);
+            return this.processGameGET(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGameGet(response_ as any);
+                    return this.processGameGET(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -222,7 +222,7 @@ export class GameClient {
         }));
     }
 
-    protected processGameGet(response: HttpResponseBase): Observable<void> {
+    protected processGameGET(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -303,7 +303,7 @@ export class UserClient {
     /**
      * @return Success
      */
-    userGet(id: number): Observable<GetUserResponse> {
+    userGET(id: number): Observable<GetUserResponse> {
         let url_ = this.baseUrl + "/api/User/UserBy{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -319,11 +319,11 @@ export class UserClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUserGet(response_);
+            return this.processUserGET(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUserGet(response_ as any);
+                    return this.processUserGET(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<GetUserResponse>;
                 }
@@ -332,7 +332,7 @@ export class UserClient {
         }));
     }
 
-    protected processUserGet(response: HttpResponseBase): Observable<GetUserResponse> {
+    protected processUserGET(response: HttpResponseBase): Observable<GetUserResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -409,7 +409,7 @@ export class UserClient {
      * @param body (optional) 
      * @return Success
      */
-    userPut(id: number, body: User | undefined): Observable<void> {
+    userPUT(id: number, body: User | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/User/UpdateUser{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -428,11 +428,11 @@ export class UserClient {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUserPut(response_);
+            return this.processUserPUT(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUserPut(response_ as any);
+                    return this.processUserPUT(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -441,7 +441,7 @@ export class UserClient {
         }));
     }
 
-    protected processUserPut(response: HttpResponseBase): Observable<void> {
+    protected processUserPUT(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -463,7 +463,7 @@ export class UserClient {
     /**
      * @return Success
      */
-    userDelete(id: number): Observable<void> {
+    userDELETE(id: number): Observable<void> {
         let url_ = this.baseUrl + "/api/User/DeleteUserBy{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -478,11 +478,11 @@ export class UserClient {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUserDelete(response_);
+            return this.processUserDELETE(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUserDelete(response_ as any);
+                    return this.processUserDELETE(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -491,7 +491,7 @@ export class UserClient {
         }));
     }
 
-    protected processUserDelete(response: HttpResponseBase): Observable<void> {
+    protected processUserDELETE(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

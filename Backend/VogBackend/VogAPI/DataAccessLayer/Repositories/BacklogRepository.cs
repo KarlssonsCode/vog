@@ -68,7 +68,11 @@ namespace DataAccessLayer.Repositories
             _context.Backlogs.Remove(backlog);
             await _context.SaveChangesAsync();
             return true;
-        }
 
+        }
+        public Task<Backlog> GetUserBacklog(int userId)
+        {
+            return (Task<Backlog>)_context.Backlogs.Where(u => u.UserId == userId);
+        }
     }
 }

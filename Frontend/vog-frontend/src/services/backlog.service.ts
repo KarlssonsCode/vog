@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BacklogClient, CreateBacklogRequest } from '../vog-api';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,13 @@ import { Observable } from 'rxjs';
 export class BacklogService {
   constructor(private backlogClient: BacklogClient) {}
 
-  addToBacklog(requestBody: CreateBacklogRequest): Observable<void> {
-    return this.backlogClient.addToBackLog(requestBody);
+  addGameToBacklog(requestBody: CreateBacklogRequest): Observable<void> {
+    return this.backlogClient.addToBackLog(requestBody).pipe(
+      tap(response => console.log('API response', response)),
+      catchError(error => {
+        console.error('Error occurred', error);
+        return of(error); // or handle error appropriately
+      })
+    );
   }
 }

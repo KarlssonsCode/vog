@@ -72,9 +72,22 @@ namespace BusinessLogicLayer.Services
             return await _backlogRepository.DeleteGameFromBacklogAsync(backlogId);
         }
 
-        //public Task<GetBacklogResponse> GetUserBacklog(int userId)
+        // public async Task<IQueryable<GetBacklogResponse>> GetUserBacklogAsync(int userId)
         //{
-        //    throw new NotImplementedException();
+        //    var backlogItems = _backlogRepository.GetUserBacklog(userId);
+
+        //    var responseQuery = backlogItems.Select(item => new GetBacklogResponse
+        //    {
+        //        Id = item.Id,
+        //        UserId = item.UserId,
+        //        Title = item.Title,
+        //        BackgroundImage = item.BackgroundImage,
+        //        ReleaseDate = item.ReleaseDate,
+        //        Description = item.Description,
+        //        Metacritic = item.Metacritic
+        //    });
+
+        //    return await Task.FromResult(responseQuery);
         //}
     }
 }
