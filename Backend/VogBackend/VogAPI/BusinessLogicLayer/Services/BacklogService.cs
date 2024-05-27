@@ -27,25 +27,9 @@ namespace BusinessLogicLayer.Services
             _context = context;
         }
 
-        //public async Task<CreateBacklogRequest> AddGameToBacklog(int userId, int rawgId, string rawgTitle, string backgroundImage, string releaseDate, string description, int? metacritic)
-        //{
-        //    var backlog = new
-        //    {
-        //        UserId = userId,
-        //        RawgId = rawgId,
-        //        RawgTitle = rawgTitle,
-        //        BackgroundImage = backgroundImage,
-        //        ReleaseDate = releaseDate,
-        //        Description = description,
-        //        Metacritic = metacritic
-        //    }.Adapt<Backlog>();
-
-        //    await _backlogRepository.AddGameToBacklog(backlog);
-        //    return backlog;
-        //}
-
         public async Task AddGameToBacklogAsync(CreateBacklogRequest backlogRequest)
         {
+
             var game = new Game
             {
                 RawgId = backlogRequest.RawgId,
@@ -65,6 +49,8 @@ namespace BusinessLogicLayer.Services
             }.Adapt<Backlog>();
 
             await _backlogRepository.AddGameToBacklogAsync(backlog);
+
+
         }
 
         public async Task<bool> DeleteGameFromBacklog(int backlogId)
@@ -72,22 +58,15 @@ namespace BusinessLogicLayer.Services
             return await _backlogRepository.DeleteGameFromBacklogAsync(backlogId);
         }
 
-        // public async Task<IQueryable<GetBacklogResponse>> GetUserBacklogAsync(int userId)
-        //{
-        //    var backlogItems = _backlogRepository.GetUserBacklog(userId);
+        public async Task<IQueryable<GetBacklogResponse>> GetUserBacklogAsync(int userId)
+        {
+            var response = await _backlogRepository.GetBacklogItemsByUserIdAsync(userId);
+            var mappedBacklog = response
+                .AsQueryable()
+                .ProjectToType<GetBacklogResponse>();
 
-        //    var responseQuery = backlogItems.Select(item => new GetBacklogResponse
-        //    {
-        //        Id = item.Id,
-        //        UserId = item.UserId,
-        //        Title = item.Title,
-        //        BackgroundImage = item.BackgroundImage,
-        //        ReleaseDate = item.ReleaseDate,
-        //        Description = item.Description,
-        //        Metacritic = item.Metacritic
-        //    });
+            return mappedBacklog;
+        }
 
-        //    return await Task.FromResult(responseQuery);
-        //}
     }
 }

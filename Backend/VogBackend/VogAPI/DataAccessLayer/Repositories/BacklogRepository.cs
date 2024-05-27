@@ -19,43 +19,22 @@ namespace DataAccessLayer.Repositories
             _context = context;
             _gameRepository = gameRepository;
         }
-        //public async Task AddGameToBacklogAsync(int userId, int rawgId, string rawgTitle, string backgroundImage, string releaseDate, string description, int? metacritic)
-        //{
-        //    var game = new Game
-        //    {
-        //        RawgId = rawgId,
-        //        Title = rawgTitle,
-        //        BackgroundImage = backgroundImage,
-        //        ReleaseDate = releaseDate,
-        //        Description = description,
-        //        Metacritic = metacritic
-        //    };
-
-        //    game = await _gameRepository.AddGame(game);
-
-        //    var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-        //    var gameAdd = _context.Games.FirstOrDefault(g => g.Id == game.Id);
-        //    if (user == null || game == null)
-        //    {
-        //        return;
-        //    }
-
-        //    if (!_context.Backlogs.Any(b => b.UserId == userId && b.GameId == game.Id))
-        //    {
-        //        var backlogItem = new Backlog
-        //        {
-        //            UserId = userId,
-        //            GameId = game.Id,
-        //        };
-
-        //        _context.Backlogs.Add(backlogItem);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //}
         public async Task AddGameToBacklogAsync(Backlog backlog)
         {
+            var existingBacklog = await GetBacklogItemAsync(backlog.UserId, backlog.GameId);
+
+            if (existingBacklog != null)
+            {
+                return;
+            }
             _context.Backlogs.Add(backlog);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Backlog> GetBacklogItemAsync(int userId, int gameId)
+        {
+            return await _context.Backlogs
+                .FirstOrDefaultAsync(b => b.UserId == userId && b.GameId == gameId);
         }
         public async Task<bool> DeleteGameFromBacklogAsync(int backlogId)
         {
@@ -70,9 +49,16 @@ namespace DataAccessLayer.Repositories
             return true;
 
         }
-        public Task<Backlog> GetUserBacklog(int userId)
+        public async Task<ICollection<Backlog>> GetBacklogItemsByUserIdAsync(int userId)
         {
-            return (Task<Backlog>)_context.Backlogs.Where(u => u.UserId == userId);
+            return await _context.Backlogs
+             .Where(b => b.UserId == userId)
+             .Include(b => b.Game)            
+             .AsNoTracking()
+             .ToListAsync();
         }
+
+
+
     }
 }

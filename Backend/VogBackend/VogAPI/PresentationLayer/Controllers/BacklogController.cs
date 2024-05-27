@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Contracts.Requests;
+using BusinessLogicLayer.Contracts.Responses;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("Remove")]
+        [Route("RemoveFromBacklog")]
         public async Task<IActionResult> DeleteGameFromBacklog(int backlogId)
         {
             var result = await _backlogService.DeleteGameFromBacklog(backlogId);
@@ -47,7 +48,16 @@ namespace PresentationLayer.Controllers
         //    var backlogList = await backlogResponse.ToListAsync();
         //    return Ok(backlogList);
         //}
-        
+
+        [HttpGet]
+        [Route("GetUserBacklogByUserId")]
+        public async Task<ActionResult<ICollection<GetBacklogResponse>>> GetUserBacklog(int userId)
+        {
+            var response = await _backlogService.GetUserBacklogAsync(userId);
+            return Ok(response);
+        }
+
+
 
     }
 }

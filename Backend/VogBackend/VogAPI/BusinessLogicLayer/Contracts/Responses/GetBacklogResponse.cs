@@ -16,10 +16,13 @@ namespace BusinessLogicLayer.Contracts.Responses
         public int UserId { get; set; }
 
         [Required]
+        public int GameId { get; set; }
+
+        [Required]
         public string Title { get; set; }
 
         [Required]
-        public string? BackgroundImage { get; set; }
+        public string BackgroundImage { get; set; }
 
         [Required]
         public DateOnly ReleaseDate { get; set; }
@@ -27,7 +30,7 @@ namespace BusinessLogicLayer.Contracts.Responses
         [Required]
         public string Description { get; set; }
         [Required]
-        public int? Metacritic { get; set; }
+        public int Metacritic { get; set; }
 
     }
 }

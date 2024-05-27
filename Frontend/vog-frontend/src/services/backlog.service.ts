@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BacklogClient, CreateBacklogRequest } from '../vog-api';
+import {
+  BacklogClient,
+  CreateBacklogRequest,
+  GetBacklogResponse,
+} from '../vog-api';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Injectable({
@@ -16,5 +20,13 @@ export class BacklogService {
         return of(error); // or handle error appropriately
       })
     );
+  }
+
+  removeGameFrombacklog(backlogId: number): Observable<void> {
+    return this.backlogClient.removeFromBacklog(backlogId);
+  }
+
+  getUserBacklog(userId: number): Observable<GetBacklogResponse[]> {
+    return this.backlogClient.getUserBacklogByUserId(userId);
   }
 }

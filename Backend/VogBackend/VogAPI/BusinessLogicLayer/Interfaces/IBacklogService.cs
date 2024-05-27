@@ -11,9 +11,9 @@ namespace BusinessLogicLayer.Interfaces
 {
     public interface IBacklogService
     {
-        //Task<Backlog> AddGameToBacklog(int userId, int rawgId, string rawgTitle, string backgroundImage, string releaseDate, string description, int? metacritic);
+
         Task AddGameToBacklogAsync(CreateBacklogRequest backlogRequest);
         Task <bool>DeleteGameFromBacklog(int backlogId);
-        //Task<IQueryable<GetBacklogResponse>> GetUserBacklogAsync(int userId);
+        Task<IQueryable<GetBacklogResponse>> GetUserBacklogAsync(int userId);
     }
 }

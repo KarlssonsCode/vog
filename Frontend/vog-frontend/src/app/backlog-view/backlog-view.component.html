@@ -1,1 +1,30 @@
-<p>backlog-view works!</p>
+<div class="backlog-title">
+  <h1>{{ userName }}'s Backlog</h1>
+</div>
+
+<div
+  *ngIf="backlogItems && backlogItems.length > 0; else noBacklog"
+  class="game-card-layout">
+  <div *ngFor="let item of backlogItems" class="card mb-4">
+    <div class="image-container">
+      <img [src]="item.backgroundImage" alt="{{ item.title }}" />
+    </div>
+    <div class="card-body">
+      <h3>{{ item.title }}</h3>
+      <p>
+        <strong>Metacritic: </strong>
+        <app-metacritic-score
+          [metacritic]="item.metacritic"></app-metacritic-score>
+      </p>
+      <button
+        class="btn btn-danger float-right"
+        (click)="removeFromBacklog(item.id)">
+        Remove
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noBacklog>
+  <p>No backlog items found.</p>
+</ng-template>
