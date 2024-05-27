@@ -1,21 +1,24 @@
 .game-card-layout {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .card {
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
 }
 
 .image-container {
-    width: 100%;
-    height: 250px; /* Adjust the height as needed */
-    overflow: hidden;
-  }
-  
-  .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer; /* If you want to make the image clickable */
-  }
+  width: 100%;
+  height: 300px; /* Adjust the height for larger cards */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer; /* If you want to make the image clickable */
+}

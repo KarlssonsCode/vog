@@ -1,16 +1,18 @@
 <!-- eslint-disable @angular-eslint/template/alt-text -->
 <div class="container game-card-layout">
   <div class="row">
-    <div class="col-md-4" *ngFor="let game of startPageGames">
+    <div class="col-md-3" *ngFor="let game of startPageGames">
       <div class="card mb-4">
-        <img
-          [src]="game.background_image"
-          class="card-img-top image-container"
-          alt="Game Image"
-          (click)="navigateToGameDetails(game.slug)"
-          (keydown.enter)="navigateToGameDetails(game.slug)"
-          (keyup.enter)="navigateToGameDetails(game.slug)"
-          tabindex="0" />
+        <div class="image-container">
+          <img
+            [src]="game.background_image"
+            class="card-img-top"
+            alt="Game Image"
+            (click)="navigateToGameDetails(game.slug)"
+            (keydown.enter)="navigateToGameDetails(game.slug)"
+            (keyup.enter)="navigateToGameDetails(game.slug)"
+            tabindex="0" />
+        </div>
         <div class="card-body">
           <h3 class="card-title">{{ game.name }}</h3>
           <button

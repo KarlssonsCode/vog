@@ -21,7 +21,7 @@ namespace DataAccessLayer.Repositories
         }
         public async Task AddGameToBacklogAsync(Backlog backlog)
         {
-            var existingBacklog = await GetBacklogItemAsync(backlog.UserId, backlog.GameId);
+            var existingBacklog = await CheckIfInBacklogAlready(backlog.UserId, backlog.GameId);
 
             if (existingBacklog != null)
             {
@@ -31,7 +31,7 @@ namespace DataAccessLayer.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Backlog> GetBacklogItemAsync(int userId, int gameId)
+        public async Task<Backlog> CheckIfInBacklogAlready(int userId, int gameId)
         {
             return await _context.Backlogs
                 .FirstOrDefaultAsync(b => b.UserId == userId && b.GameId == gameId);

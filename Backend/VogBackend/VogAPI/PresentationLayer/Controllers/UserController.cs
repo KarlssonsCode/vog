@@ -39,7 +39,7 @@ namespace PresentationLayer.Controllers
         public async Task<IActionResult> CreateUser(User user)
         {
             var createdUser = await _userService.CreateUserAsync(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+            return Ok(createdUser);
         }
 
 

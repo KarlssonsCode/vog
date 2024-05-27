@@ -1,38 +1,28 @@
 .game-card-layout {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 50px;
-    margin-left: 20px;
-  }
-  
-  .card {
-    border: none;
-    width: calc(33.333% - 20px); /* Three cards per row, adjust as needed */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-  }
-  
-  .image-container {
-    width: 100%;
-    height: 250px; /* Adjust the height as needed */
-    overflow: hidden;
-  }
-  
-  .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .card-body {
-    padding: relative;
-  }
+  margin-top: 50px;
+}
 
-  .card-body .btn-danger {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-  }
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.image-container {
+  width: 100%;
+  height: 250px; /* Adjust the height as needed */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer; /* If you want to make the image clickable */
+}
+
+.backlog-title {
+  margin-bottom: 20px;
+}
