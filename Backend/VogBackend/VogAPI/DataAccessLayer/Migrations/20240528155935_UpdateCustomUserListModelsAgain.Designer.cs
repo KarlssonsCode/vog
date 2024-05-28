@@ -4,6 +4,7 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240528155935_UpdateCustomUserListModelsAgain")]
+    partial class UpdateCustomUserListModelsAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,8 +68,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("CustomUserLists");
                 });
 
@@ -78,6 +79,9 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CustomUserListId")
+                        .HasColumnType("int");
+
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
@@ -85,6 +89,8 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomUserListId");
 
                     b.HasIndex("GameId");
 
@@ -162,15 +168,14 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("ReviewText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
+                    b.Property<string>("Score")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.HasIndex("UserId");
 
@@ -196,19 +201,12 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("VogAPI.Models.CustomUserList", b =>
-                {
-                    b.HasOne("VogAPI.Models.User", "User")
-                        .WithMany("CustomUserLists")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("VogAPI.Models.CustomUserListGame", b =>
                 {
+                    b.HasOne("VogAPI.Models.CustomUserList", null)
+                        .WithMany("Games")
+                        .HasForeignKey("CustomUserListId");
+
                     b.HasOne("VogAPI.Models.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId")
@@ -220,31 +218,23 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("VogAPI.Models.UserReview", b =>
                 {
-                    b.HasOne("VogAPI.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VogAPI.Models.User", "User")
+                    b.HasOne("VogAPI.Models.User", "user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.Navigation("user");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("VogAPI.Models.CustomUserList", b =>
+                {
+                    b.Navigation("Games");
                 });
 
             modelBuilder.Entity("VogAPI.Models.Game", b =>
                 {
                     b.Navigation("BacklogGames");
-                });
-
-            modelBuilder.Entity("VogAPI.Models.User", b =>
-                {
-                    b.Navigation("CustomUserLists");
                 });
 #pragma warning restore 612, 618
         }

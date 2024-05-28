@@ -16,9 +16,9 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost("AddGameToCustomList")]
-        public async Task<IActionResult> AddGameToCustomList(CreateCustomUserListGameRequest customUserListGame)
+        public async Task<IActionResult> AddGameToCustomList(CreateCustomUserListGameRequest customUserListGameRequest)
         {
-            await _customUserListGameService.AddGameToCustomListAsync(customUserListGame);
+            await _customUserListGameService.AddGameToCustomListAsync(customUserListGameRequest);
             return Ok();
         }
     }

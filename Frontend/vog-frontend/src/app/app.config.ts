@@ -1,6 +1,12 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { API_BASE_URL, BacklogClient, UserClient } from '../vog-api';
+import {
+  API_BASE_URL,
+  BacklogClient,
+  CustomUserListClient,
+  UserClient,
+  UserReviewClient,
+} from '../vog-api';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
@@ -10,6 +16,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     UserClient,
     BacklogClient,
+    CustomUserListClient,
+    UserReviewClient,
     { provide: API_BASE_URL, useValue: environment.API_URL },
     provideRouter(routes),
     provideHttpClient(),

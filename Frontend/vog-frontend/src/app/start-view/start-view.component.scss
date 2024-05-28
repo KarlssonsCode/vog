@@ -22,3 +22,8 @@
   object-fit: cover;
   cursor: pointer; /* If you want to make the image clickable */
 }
+
+button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+}

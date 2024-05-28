@@ -1,7 +1,9 @@
 ﻿using BusinessLogicLayer.Contracts.Requests;
+using BusinessLogicLayer.Contracts.Responses;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using VogAPI.Models;
 
 namespace PresentationLayer.Controllers
@@ -18,10 +20,18 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost("CreateCustomList")]
-        public async Task<IActionResult> CreateCustomList(CustomUserList customUserList)
+        public async Task<IActionResult> CreateCustomList(CreateCustomUserListRequest customUserListRequest)
         {
-            var createdList = await _customUserListService.CreateCustomListAsync(customUserList);
-            return Ok(createdList);
+            await _customUserListService.CreateCustomListAsync(customUserListRequest);
+            return Ok(customUserListRequest);
+        }
+
+
+        [HttpGet("GetCustomUserListsById")]
+        public async Task<ActionResult<ICollection<GetCustomUserListResponse>>> GetCustomUserLists(int userId)
+        {
+            var customLists = await _customUserListService.GetCustomUserListsByUserIdAsync(userId);
+            return Ok(customLists);
         }
     }
 }

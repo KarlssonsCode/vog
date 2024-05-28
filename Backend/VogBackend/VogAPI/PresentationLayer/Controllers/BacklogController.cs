@@ -39,16 +39,6 @@ namespace PresentationLayer.Controllers
             return NoContent();
         }
 
-
-        //[HttpGet]
-        //[Route("GetUserBacklog")]
-        //public async Task<IActionResult> GetUserBacklog(int userId)
-        //{
-        //    var backlogResponse = await _backlogService.GetUserBacklogAsync(userId);
-        //    var backlogList = await backlogResponse.ToListAsync();
-        //    return Ok(backlogList);
-        //}
-
         [HttpGet]
         [Route("GetUserBacklogByUserId")]
         public async Task<ActionResult<ICollection<GetBacklogResponse>>> GetUserBacklog(int userId)

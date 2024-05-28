@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,19 @@ namespace DataAccessLayer.Repositories
         {
             _context = context;
         }
-        public async Task<CustomUserList> CreateCustomListAsync(CustomUserList customUserList)
+        public async Task CreateCustomListAsync(CustomUserList customUserList)
         {
             _context.CustomUserLists.Add(customUserList);
-            await _context.SaveChangesAsync();
-            return customUserList;
+            await _context.SaveChangesAsync();           
         }
+        public async Task<ICollection<CustomUserList>> GetCustomUserListsByUserIdAsync(int userId)
+        {
+            return await _context.CustomUserLists
+                .Include(list => list.User)
+                .Where(list => list.UserId == userId)
+                .ToListAsync();
+        }
+
+
     }
 }

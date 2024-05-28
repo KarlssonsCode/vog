@@ -1,7 +1,10 @@
 ﻿using BusinessLogicLayer.Contracts.Requests;
+using BusinessLogicLayer.Contracts.Responses;
 using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Interface;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
+using System.Collections;
 using VogAPI.Models;
 
 namespace BusinessLogicLayer.Services
@@ -15,10 +18,33 @@ namespace BusinessLogicLayer.Services
             _customUserListRepository = customUserListRepository;
         }
 
-        public async Task<CustomUserList> CreateCustomListAsync(CustomUserList customUserListRequest)
+        public async Task CreateCustomListAsync(CreateCustomUserListRequest customUserListRequest)
         {
-            return await _customUserListRepository.CreateCustomListAsync(customUserListRequest);
+            var customList = new
+            {
+                customUserListRequest.UserId,
+                customUserListRequest.Name,
+                customUserListRequest.Description
+            }.Adapt<CustomUserList>();
+
+            await _customUserListRepository.CreateCustomListAsync(customList);
         }
 
+        public async Task<IQueryable<GetCustomUserListResponse>> GetCustomUserListsByUserIdAsync(int userId)
+        {
+            // Await the task to get the IQueryable<CustomUserList>
+            var customListsQuery = await _customUserListRepository.GetCustomUserListsByUserIdAsync(userId);
+
+            // Map the query results to the response model
+            var response = customListsQuery.Select(list => new GetCustomUserListResponse
+            {
+                Id = list.Id,
+                Name = list.Name,
+                Description = list.Description,
+                Username = list.User.Username // Ensure UserName is correctly mapped
+            }).ToList();
+
+            return response.AsQueryable();
+        }
     }
 }

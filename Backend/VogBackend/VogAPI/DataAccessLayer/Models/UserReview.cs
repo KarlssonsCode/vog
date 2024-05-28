@@ -8,10 +8,12 @@ namespace VogAPI.Models
         public int Id { get; set; }
         [Required]
         public int UserId { get; set; }
+        public User User { get; set; }
         public string? ReviewText { get; set; }
         [Required]
-        public string Score { get; set; }
+        public int Score { get; set; }
         [Required]
         public int GameId { get; set; }
+        public Game Game { get; set; }
     }
 }

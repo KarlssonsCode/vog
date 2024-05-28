@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VogAPI.Models;
 
 namespace BusinessLogicLayer.Interfaces
 {
-    public interface ICustomUserListService
+    public interface IUserReviewService
     {
-        Task CreateCustomListAsync(CreateCustomUserListRequest customListRequest);
-        Task<IQueryable<GetCustomUserListResponse>> GetCustomUserListsByUserIdAsync(int userId);
+        Task CreateUserReviewAsync(CreateUserReviewRequest userReview);
+        Task<IQueryable<GetUserReviewResponse>> GetUserReviewsByUserIdAsync(int userId);
     }
 }

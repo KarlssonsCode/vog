@@ -4,6 +4,8 @@ import { ToplistViewComponent } from './toplist-view/toplist-view.component';
 import { StartViewComponent } from './start-view/start-view.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { GameDetailPageComponent } from './game-detail-page/game-detail-page.component';
+import { ReviewedGamesViewComponent } from './reviewed-games-view/reviewed-games-view.component';
+import { ListViewComponent } from './list-view/list-view.component';
 
 export const routes: Routes = [
   {
@@ -33,5 +35,15 @@ export const routes: Routes = [
     path: 'game-details/:slug', // Use a parameter to pass the game slug
     component: GameDetailPageComponent,
     title: 'Game Details',
+  },
+  {
+    path: 'review',
+    component: ReviewedGamesViewComponent,
+    title: 'Reviewed Games',
+  },
+  {
+    path: 'custom-lists',
+    component: ListViewComponent,
+    title: 'Custom Lists',
   },
 ];

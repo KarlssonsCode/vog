@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="backlog-title">
+    <h1>{{ userName }}'s Reviewed Games</h1>
+  </div>
+  <div
+    *ngIf="
+      loggedInUserReviews && loggedInUserReviews.length > 0;
+      else noReviews
+    "
+    class="row">
+    <div
+      class="col-lg-4 col-md-6 mb-4"
+      *ngFor="let game of loggedInUserReviews">
+      <div class="card">
+        <img
+          [src]="game.backgroundImage"
+          class="card-img-top"
+          alt="{{ game.title }}" />
+        <div class="card-body">
+          <h3 class="card-title">{{ game.title }}</h3>
+          <p><strong>Reviewed by: </strong>{{ game.username }}</p>
+          <p>
+            <strong>User score: </strong
+            ><app-metacritic-score
+              [metacritic]="game.score"></app-metacritic-score>
+          </p>
+          <p>
+            <strong>Metacritic: </strong>
+            <app-metacritic-score
+              [metacritic]="game.metacritic"></app-metacritic-score>
+          </p>
+          <button class="btn btn-danger">Show Review</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noReviews>
+    <p>No reviewed games found.</p>
+  </ng-template>
+</div>

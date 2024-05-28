@@ -35,6 +35,9 @@ namespace PresentationLayer
             builder.Services.AddScoped<ICustomUserListGameService, CustomUserListGameService>();
             builder.Services.AddScoped<ICustomUserListGameRepository, CustomUserListGameRepository>();
 
+            builder.Services.AddScoped<IUserReviewService, UserReviewService>();
+            builder.Services.AddScoped<IUserReviewRepository, UserReviewRepository>();
+
             builder.Services.AddControllers();
 
             MappingConfigurations.ConfigureMappings();
