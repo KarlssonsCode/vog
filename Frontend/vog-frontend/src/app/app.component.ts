@@ -6,6 +6,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { GetUserResponse } from '../vog-api';
+import { RawgGame } from '../rawg-service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ import { GetUserResponse } from '../vog-api';
 export class AppComponent implements OnInit {
   title = 'vault-of-games';
   searchQuery: string = '';
-  searchResults: any[] = [];
+  searchResults: RawgGame[] = [];
   loginError: string | null = null;
   loading: boolean = false;
   showDropdown: boolean = false;
@@ -57,7 +58,6 @@ export class AppComponent implements OnInit {
   onSubmit(form: NgForm): void {
     if (form.valid) {
       const { email, password } = form.value;
-      console.log('AppComponent: Form submitted with email:', email);
       this.login(email, password);
     } else {
       console.log('AppComponent: Form is invalid');
@@ -79,20 +79,15 @@ export class AppComponent implements OnInit {
       this.rawgService.searchGames(query).subscribe((data: any) => {
         this.searchResults = data.results;
         this.loading = false;
-        this.showDropdown = true; // Show the dropdown when there are search results
+        this.showDropdown = true;
       });
     } else {
       this.searchResults = [];
-      this.showDropdown = false; // Hide the dropdown when the input length is less than 3 characters
+      this.showDropdown = false;
     }
   }
 
   navigateToGameDetails(slug: string) {
     this.router.navigate(['/game-details', slug]);
-  }
-
-  selectGame(game: any) {
-    console.log('Selected game:', game);
-    // Do something with the selected game, such as navigating to its details page
   }
 }

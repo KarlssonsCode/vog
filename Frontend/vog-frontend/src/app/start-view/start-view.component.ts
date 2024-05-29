@@ -38,10 +38,6 @@ export class StartViewComponent implements OnInit {
     modalRef.componentInstance.game = game;
   }
 
-  handleImageClick(game: RawgGame) {
-    return game;
-  }
-
   navigateToGameDetails(slug: string) {
     this.router.navigate(['/game-details', slug]);
   }

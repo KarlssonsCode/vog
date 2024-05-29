@@ -6,7 +6,6 @@
         alt=""
         width="112.5"
         height="48.75"
-        href="#"
         style="margin: 10px" />
     </a>
     <button
@@ -37,38 +36,36 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <li *ngFor="let game of searchResults">
-            <a
+            <button
               class="dropdown-item"
-              href="#"
-              (click)="navigateToGameDetails(game.slug)"
-              >{{ game.name }}</a
-            >
+              (click)="navigateToGameDetails(game.slug)">
+              {{ game.name }}
+            </button>
           </li>
         </ul>
       </div>
     </form>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="backlog"
             >Backlog</a
           >
         </li>
-        <li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="custom-lists"
             >Custom Lists</a
           >
         </li>
-        <li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="review"
             >Reviewed Games</a
           >
         </li>
-        <li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="profile">{{
             userName
           }}</a>
@@ -95,22 +92,7 @@
           <button class="btn btn-outline-light" type="submit">Login</button>
         </div>
       </form>
-
-      <!-- <a href="profile"
-        >Profile
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-person-fill"
-          viewBox="0 0 16 16">
-          <path
-            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-        </svg>
-      </a> -->
     </div>
   </div>
 </nav>
-
 <router-outlet></router-outlet>
