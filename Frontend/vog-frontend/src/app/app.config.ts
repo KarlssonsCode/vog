@@ -4,6 +4,7 @@ import {
   API_BASE_URL,
   BacklogClient,
   CustomUserListClient,
+  CustomUserListGameClient,
   UserClient,
   UserReviewClient,
 } from '../vog-api';
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     BacklogClient,
     CustomUserListClient,
     UserReviewClient,
+    CustomUserListGameClient,
     { provide: API_BASE_URL, useValue: environment.API_URL },
     provideRouter(routes),
     provideHttpClient(),

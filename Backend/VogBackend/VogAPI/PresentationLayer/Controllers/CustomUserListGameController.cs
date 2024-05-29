@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Contracts.Requests;
+using BusinessLogicLayer.Contracts.Responses;
 using BusinessLogicLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using VogAPI.Models;
@@ -21,5 +22,13 @@ namespace PresentationLayer.Controllers
             await _customUserListGameService.AddGameToCustomListAsync(customUserListGameRequest);
             return Ok();
         }
+
+        [HttpGet("GetCustomUserListGamesByListId")]
+        public async Task<ActionResult<ICollection<GetCustomUserListGameResponse>>> GetCustomUserListGamesByListId(int customUserListId)
+        {
+            var customListGames = await _customUserListGameService.GetCustomUserListGamesByListIdAsync(customUserListId);
+            return Ok(customListGames);
+        }
+
     }
 }

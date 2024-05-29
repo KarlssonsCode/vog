@@ -16,10 +16,10 @@ namespace DataAccessLayer.Repositories
         public CustomUserListGameRepository(ApplicationDbContext context)
         {
             _context = context;
-        }      
+        }
         public async Task AddGameToCustomListAsync(CustomUserListGame game)
         {
-            var existingGameInList = await CheckIfInListAlready(game.GameId, game.ListId);
+            var existingGameInList = await CheckIfInListAlready(game.GameId, game.CustomUserListId);
 
             if (existingGameInList != null)
             {
@@ -32,7 +32,13 @@ namespace DataAccessLayer.Repositories
         public async Task<CustomUserListGame> CheckIfInListAlready(int gameId, int listId)
         {
             return await _context.CustomUserListGames
-                .FirstOrDefaultAsync(c => c.GameId == gameId && c.ListId == listId);
+                .FirstOrDefaultAsync(c => c.GameId == gameId && c.CustomUserListId == listId);
+        }
+
+        public async Task<ICollection<CustomUserListGame>> GetCustomUserListGamesByListIdAsync(int listId)
+        {
+            return await _context.CustomUserListGames.Where(game => game.CustomUserListId == listId).Include(g => g.Game)
+            .ToListAsync();
         }
     }
 }

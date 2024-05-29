@@ -367,6 +367,61 @@ export class CustomUserListGameClient {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @param customUserListId (optional) 
+     * @return Success
+     */
+    getCustomUserListGamesByListId(customUserListId: number | undefined): Observable<GetCustomUserListGameResponse[]> {
+        let url_ = this.baseUrl + "/CustomUserListGame/GetCustomUserListGamesByListId?";
+        if (customUserListId === null)
+            throw new Error("The parameter 'customUserListId' cannot be null.");
+        else if (customUserListId !== undefined)
+            url_ += "customUserListId=" + encodeURIComponent("" + customUserListId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCustomUserListGamesByListId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCustomUserListGamesByListId(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetCustomUserListGameResponse[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetCustomUserListGameResponse[]>;
+        }));
+    }
+
+    protected processGetCustomUserListGamesByListId(response: HttpResponseBase): Observable<GetCustomUserListGameResponse[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GetCustomUserListGameResponse[];
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -947,7 +1002,7 @@ export interface CreateBacklogRequest {
 }
 
 export interface CreateCustomUserListGameRequest {
-    listId: number;
+    customUserListId: number;
     gameId: number;
 }
 
@@ -962,14 +1017,6 @@ export interface CreateUserReviewRequest {
     reviewText?: string | undefined;
     score: number;
     gameId: number;
-}
-
-export interface CustomUserList {
-    id: number;
-    userId: number;
-    name: string;
-    description?: string | undefined;
-    user?: User;
 }
 
 export interface DateOnly {
@@ -1013,6 +1060,17 @@ export interface GetBacklogResponse {
     metacritic: number;
 }
 
+export interface GetCustomUserListGameResponse {
+    id: number;
+    customUserListId: number;
+    gameId: number;
+    title: string;
+    backgroundImage: string;
+    releaseDate: string;
+    description: string;
+    metacritic: number;
+}
+
 export interface GetCustomUserListResponse {
     id: number;
     userId: number;
@@ -1045,7 +1103,6 @@ export interface User {
     username: string;
     password: string;
     email: string;
-    customUserLists?: CustomUserList[] | undefined;
 }
 
 export class ApiException extends Error {

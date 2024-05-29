@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Contracts.Requests;
+using BusinessLogicLayer.Contracts.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace BusinessLogicLayer.Interfaces
     public interface ICustomUserListGameService
     {
         Task AddGameToCustomListAsync(CreateCustomUserListGameRequest customUserListGame);
+        Task<IQueryable<GetCustomUserListGameResponse>> GetCustomUserListGamesByListIdAsync(int customUserListId);
     }
 }

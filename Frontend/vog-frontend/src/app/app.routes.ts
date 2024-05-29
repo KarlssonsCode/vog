@@ -6,6 +6,7 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { GameDetailPageComponent } from './game-detail-page/game-detail-page.component';
 import { ReviewedGamesViewComponent } from './reviewed-games-view/reviewed-games-view.component';
 import { ListViewComponent } from './list-view/list-view.component';
+import { ListDetailViewComponent } from './list-detail-view/list-detail-view.component';
 
 export const routes: Routes = [
   {
@@ -45,5 +46,10 @@ export const routes: Routes = [
     path: 'custom-lists',
     component: ListViewComponent,
     title: 'Custom Lists',
+  },
+  {
+    path: 'custom-list-detail/:id',
+    component: ListDetailViewComponent,
+    title: 'Custom List Details',
   },
 ];

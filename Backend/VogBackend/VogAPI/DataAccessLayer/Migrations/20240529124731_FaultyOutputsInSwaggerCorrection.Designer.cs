@@ -4,6 +4,7 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240529124731_FaultyOutputsInSwaggerCorrection")]
+    partial class FaultyOutputsInSwaggerCorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,6 +85,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ListId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -201,7 +207,7 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("VogAPI.Models.CustomUserList", b =>
                 {
                     b.HasOne("VogAPI.Models.User", "User")
-                        .WithMany()
+                        .WithMany("CustomUserLists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -250,6 +256,11 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("VogAPI.Models.Game", b =>
                 {
                     b.Navigation("BacklogGames");
+                });
+
+            modelBuilder.Entity("VogAPI.Models.User", b =>
+                {
+                    b.Navigation("CustomUserLists");
                 });
 #pragma warning restore 612, 618
         }

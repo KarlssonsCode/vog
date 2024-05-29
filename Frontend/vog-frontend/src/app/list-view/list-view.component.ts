@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-view',
@@ -28,7 +29,8 @@ export class ListViewComponent implements OnInit {
 
   constructor(
     private customUserListService: CustomUserListService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.userId = this.userService.userId;
@@ -61,5 +63,9 @@ export class ListViewComponent implements OnInit {
 
   createCustomList(requestBody: CreateCustomUserListRequest): Observable<void> {
     return this.customUserListService.createCustomUserList(requestBody);
+  }
+
+  navigateToListPage(listId: number) {
+    this.router.navigate(['/custom-list-detail', listId]);
   }
 }

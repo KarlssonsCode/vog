@@ -32,16 +32,16 @@ namespace BusinessLogicLayer.Services
 
         public async Task<IQueryable<GetCustomUserListResponse>> GetCustomUserListsByUserIdAsync(int userId)
         {
-            // Await the task to get the IQueryable<CustomUserList>
+
             var customListsQuery = await _customUserListRepository.GetCustomUserListsByUserIdAsync(userId);
 
-            // Map the query results to the response model
+
             var response = customListsQuery.Select(list => new GetCustomUserListResponse
             {
                 Id = list.Id,
                 Name = list.Name,
                 Description = list.Description,
-                Username = list.User.Username // Ensure UserName is correctly mapped
+                Username = list.User.Username
             }).ToList();
 
             return response.AsQueryable();

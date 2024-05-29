@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <form (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="name">Name:</label>
@@ -26,7 +28,9 @@
         <div
           *ngFor="let list of customUserLists"
           class="card mb-3 me-3"
-          style="width: 18rem">
+          style="width: 18rem"
+          (click)="navigateToListPage(list.id)"
+          style="cursor: pointer">
           <div class="card-body">
             <h3 class="card-title">{{ list.name }}</h3>
             <p>

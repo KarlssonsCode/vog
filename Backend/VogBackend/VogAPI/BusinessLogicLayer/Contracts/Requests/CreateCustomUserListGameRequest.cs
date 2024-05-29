@@ -10,7 +10,7 @@ namespace BusinessLogicLayer.Contracts.Requests
     public class CreateCustomUserListGameRequest
     {
         [Required]
-        public int ListId { get; set; }
+        public int CustomUserListId { get; set; }
         [Required]
         public int GameId { get; set; }
     }

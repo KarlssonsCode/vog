@@ -13,6 +13,5 @@ namespace VogAPI.Models
         [Required]
         public string Email { get; set; }
 
-        public ICollection<CustomUserList> CustomUserLists { get; set; }
     }
 }

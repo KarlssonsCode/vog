@@ -7,9 +7,10 @@ namespace VogAPI.Models
         [Required]
         public int Id { get; set; }
         [Required]
-        public int ListId { get; set; }
+        public int CustomUserListId { get; set; }
         [Required]
         public int GameId { get; set; }
         public Game Game { get; set; }
+        public CustomUserList CustomUserList { get; set; }
     }
 }

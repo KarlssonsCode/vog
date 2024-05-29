@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Contracts.Requests;
+using BusinessLogicLayer.Contracts.Responses;
 using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Interface;
 using DataAccessLayer.Repositories;
@@ -25,15 +26,19 @@ namespace BusinessLogicLayer.Services
         {
             var customListGame = new
             {
-                customUserListGame.ListId,
+                customUserListGame.CustomUserListId,
                 customUserListGame.GameId
             }.Adapt<CustomUserListGame>();
 
             await _customUserListGameRepository.AddGameToCustomListAsync(customListGame);
         }
-        
-        
 
-
+        public async Task<IQueryable<GetCustomUserListGameResponse>> GetCustomUserListGamesByListIdAsync(int listId)
+        {
+            var response = await _customUserListGameRepository.GetCustomUserListGamesByListIdAsync(listId);
+            var mappedCustomListGames = response.AsQueryable().ProjectToType<GetCustomUserListGameResponse>();
+            
+            return mappedCustomListGames;
+        }
     }
 }

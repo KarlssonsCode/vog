@@ -12,7 +12,7 @@ namespace BusinessLogicLayer.Contracts.Responses
         [Required]
         public int Id { get; set; }
         [Required]
-        public int ListId { get; set; }
+        public int CustomUserListId { get; set; }
         [Required]
         public int GameId { get; set; }
         [Required]

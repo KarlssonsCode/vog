@@ -10,5 +10,6 @@ namespace DataAccessLayer.Interface
     public interface ICustomUserListGameRepository
     {
         Task AddGameToCustomListAsync(CustomUserListGame game);
+        Task<ICollection<CustomUserListGame>> GetCustomUserListGamesByListIdAsync(int listId);
     }
 }

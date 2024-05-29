@@ -37,7 +37,7 @@ namespace BusinessLogicLayer.Configurations
             TypeAdapterConfig<CustomUserListGame, GetCustomUserListGameResponse>
                 .NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.ListId, src => src.ListId)
+                .Map(dest => dest.CustomUserListId, src => src.CustomUserListId)
                 .Map(dest => dest.GameId, src => src.GameId)
                 .Map(dest => dest.Title, src => src.Game.Title)
                 .Map(dest => dest.BackgroundImage, src => src.Game.BackgroundImage)
