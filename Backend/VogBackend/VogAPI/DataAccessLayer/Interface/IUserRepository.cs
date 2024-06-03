@@ -15,5 +15,7 @@ namespace DataAccessLayer.Interface
         Task<User> UpdateUserAsync(User user);
         Task<bool> DeleteUserAsync(int id);
         Task<User> GetUserByEmailAndPasswordAsync(string email, string password);
+        Task <User>GetUserByEmailAsync(string email);
+        Task <User>GetUserByUsernameAsync(string username);
     }
 }

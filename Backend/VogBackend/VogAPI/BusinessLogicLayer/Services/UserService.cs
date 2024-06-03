@@ -34,8 +34,30 @@ namespace BusinessLogicLayer.Services
             };
         }
 
+        public async Task<(bool, string)> IsUsernameOrEmailInUseAsync(string username, string email)
+        {
+            if (await _userRepository.GetUserByUsernameAsync(username) != null)
+            {
+                return (true, "Username is already in use.");
+            }
+
+            if (await _userRepository.GetUserByEmailAsync(email) != null)
+            {
+                return (true, "Email is already in use.");
+            }
+
+            return (false, null);
+        }
+
         public async Task<User> CreateUserAsync(User user)
         {
+            var (inUse, message) = await IsUsernameOrEmailInUseAsync(user.Username, user.Email);
+
+            if (inUse)
+            {
+                throw new InvalidOperationException(message);
+            }
+
             return await _userRepository.CreateUserAsync(user);
         }
 

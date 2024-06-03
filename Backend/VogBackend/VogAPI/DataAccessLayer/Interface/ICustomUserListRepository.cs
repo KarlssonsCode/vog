@@ -10,7 +10,6 @@ namespace DataAccessLayer.Interface
     public interface ICustomUserListRepository
     {
         Task CreateCustomListAsync(CustomUserList customUserList);
-        //Task<IQueryable<CustomUserList>> GetCustomUserListsByUserIdAsync(int userId);
         Task<ICollection<CustomUserList>> GetCustomUserListsByUserIdAsync(int userId);
     }
 }

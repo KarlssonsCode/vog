@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { GetUserReviewResponse, UserReviewClient } from '../vog-api';
+import {
+  CreateUserReviewRequest,
+  GetUserReviewResponse,
+  UserReviewClient,
+} from '../vog-api';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,5 +14,9 @@ export class UserReviewService {
 
   getUserReviewsByUserId(userId: number): Observable<GetUserReviewResponse[]> {
     return this.userReviewClient.getUserReviewsByUserId(userId);
+  }
+
+  createUserReview(request: CreateUserReviewRequest): Observable<void> {
+    return this.userReviewClient.createUserReview(request);
   }
 }

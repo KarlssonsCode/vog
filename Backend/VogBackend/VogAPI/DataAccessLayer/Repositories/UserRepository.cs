@@ -54,6 +54,16 @@ namespace DataAccessLayer.Repositories
         {
             return await _context.Users.SingleOrDefaultAsync(u => u.Email == email && u.Password == password);
         }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+        }
     }
 }
 
