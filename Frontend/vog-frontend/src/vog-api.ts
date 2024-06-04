@@ -1016,7 +1016,12 @@ export interface CreateUserReviewRequest {
     userId: number;
     reviewText?: string | undefined;
     score: number;
-    gameId: number;
+    rawgId: number;
+    rawgTitle: string;
+    backgroundImage: string;
+    releaseDate: string;
+    description: string;
+    metacritic?: number | undefined;
 }
 
 export interface DateOnly {

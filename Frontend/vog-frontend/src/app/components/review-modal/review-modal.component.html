@@ -1,0 +1,44 @@
+<div
+  class="modal-dialog modal-lg"
+  id="reviewModal"
+  tabindex="-1"
+  aria-labelledby="reviewModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">Create a Review</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submitReview()">
+          <div class="mb-3">
+            <label for="reviewText" class="form-label">Review</label>
+            <textarea
+              class="form-control"
+              id="reviewText"
+              [(ngModel)]="reviewText"
+              name="reviewText"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="score" class="form-label">Score: {{ score }}</label>
+            <input
+              type="range"
+              class="form-range"
+              id="score"
+              [(ngModel)]="score"
+              name="score"
+              min="0"
+              max="100"
+              (input)="updateScore($event)" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

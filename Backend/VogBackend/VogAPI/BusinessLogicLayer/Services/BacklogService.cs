@@ -18,13 +18,11 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IBacklogRepository _backlogRepository;
         private readonly IGameService _gameService;
-        private readonly ApplicationDbContext _context;
 
         public BacklogService(IBacklogRepository backlogRepository, IGameService gameService, ApplicationDbContext context)
         {
             _backlogRepository = backlogRepository;
             _gameService = gameService;
-            _context = context;
         }
 
         public async Task AddGameToBacklogAsync(CreateBacklogRequest backlogRequest)

@@ -16,18 +16,32 @@ namespace BusinessLogicLayer.Services
     public class UserReviewService : IUserReviewService
     {
         private readonly IUserReviewRepository _userReviewRepository;
+        private readonly IGameService _gameService;
 
-        public UserReviewService(IUserReviewRepository userReviewRepository)
+        public UserReviewService(IUserReviewRepository userReviewRepository, IGameService gameService)
         {
             _userReviewRepository = userReviewRepository;
+            _gameService = gameService;
         }
 
         public async Task CreateUserReviewAsync(CreateUserReviewRequest userReviewRequest)
         {
+            var game = new Game
+            {
+                RawgId = userReviewRequest.RawgId,
+                Title = userReviewRequest.RawgTitle,
+                BackgroundImage = userReviewRequest.BackgroundImage,
+                ReleaseDate = userReviewRequest.ReleaseDate,
+                Description = userReviewRequest.Description,
+                Metacritic = userReviewRequest.Metacritic
+            };
+
+            game = await _gameService.AddGame(game);
+
             var userReview = new
             {
                 userReviewRequest.UserId,
-                userReviewRequest.GameId,
+                GameId = game.Id,
                 userReviewRequest.ReviewText,
                 userReviewRequest.Score
             }.Adapt<UserReview>();

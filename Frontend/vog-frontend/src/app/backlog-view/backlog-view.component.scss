@@ -26,3 +26,22 @@
 .backlog-title {
   margin-bottom: 20px;
 }
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-add-review {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  background-color: #F4D03F; 
+  color: #000000;
+
+}
+
+.button-add-review:hover {
+  background-color: #F7DC6F; 
+  color: #000000;
+}

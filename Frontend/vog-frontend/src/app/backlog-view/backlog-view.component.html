@@ -6,7 +6,6 @@
     *ngIf="backlogItems && backlogItems.length > 0; else noBacklog"
     class="row game-card-layout">
     <div class="col-md-3" *ngFor="let item of backlogItems">
-      <!-- Changed to col-md-3 -->
       <div class="card mb-4">
         <div class="image-container">
           <img
@@ -21,11 +20,12 @@
             <app-metacritic-score
               [metacritic]="item.metacritic"></app-metacritic-score>
           </p>
-          <button
-            class="btn btn-danger float-right"
-            (click)="removeFromBacklog(item.id)">
-            Remove
-          </button>
+          <div class="button-container">
+            <button class="btn btn-danger" (click)="removeFromBacklog(item.id)">
+              Remove
+            </button>
+            <button class="btn button-add-review">Add Review</button>
+          </div>
         </div>
       </div>
     </div>

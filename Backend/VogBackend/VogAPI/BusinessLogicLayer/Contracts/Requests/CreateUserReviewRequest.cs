@@ -15,7 +15,16 @@ namespace BusinessLogicLayer.Contracts.Requests
         public string? ReviewText { get; set; }
         [Required]
         public int Score { get; set; }
-        [Required]
-        public int GameId { get; set; }
+        [Required] 
+        public int RawgId { get; set; }
+        [Required] 
+        public string RawgTitle { get; set; }
+        [Required] 
+        public string BackgroundImage { get; set; }
+        [Required] 
+        public string ReleaseDate { get; set; }
+        [Required] 
+        public string Description { get; set; }
+        public int? Metacritic { get; set; }
     }
 }
