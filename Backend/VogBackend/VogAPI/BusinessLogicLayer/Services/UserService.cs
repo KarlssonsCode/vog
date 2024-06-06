@@ -2,6 +2,7 @@
 using BusinessLogicLayer.Interfaces;
 using VogAPI.Models;
 using DataAccessLayer.Interface;
+using BusinessLogicLayer.Contracts.Requests;
 
 namespace BusinessLogicLayer.Services
 {
@@ -49,7 +50,7 @@ namespace BusinessLogicLayer.Services
             return (false, null);
         }
 
-        public async Task<User> CreateUserAsync(User user)
+        public async Task<User> CreateUserAsync(CreateUserRequest user)
         {
             var (inUse, message) = await IsUsernameOrEmailInUseAsync(user.Username, user.Email);
 
@@ -58,7 +59,14 @@ namespace BusinessLogicLayer.Services
                 throw new InvalidOperationException(message);
             }
 
-            return await _userRepository.CreateUserAsync(user);
+            User newUser = new User
+            {
+                Username = user.Username,
+                Email = user.Email,
+                Password = user.Password,
+            };
+
+            return await _userRepository.CreateUserAsync(newUser);
         }
 
         public async Task<User> UpdateUserAsync(User user)

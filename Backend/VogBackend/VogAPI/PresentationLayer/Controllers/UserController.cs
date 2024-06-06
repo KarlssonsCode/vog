@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Contracts.Responses;
+﻿using BusinessLogicLayer.Contracts.Requests;
+using BusinessLogicLayer.Contracts.Responses;
 using BusinessLogicLayer.Interfaces;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser(User user)
+        public async Task<IActionResult> CreateUser(CreateUserRequest user)
         {
             var createdUser = await _userService.CreateUserAsync(user);
             return Ok(createdUser);

@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { GetUserResponse } from '../vog-api';
 import { RawgGame } from '../rawg-service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateAccountModalComponent } from './components/create-account-modal/create-account-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +30,8 @@ export class AppComponent implements OnInit {
   constructor(
     private rawgService: RawgService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -89,5 +92,17 @@ export class AppComponent implements OnInit {
 
   navigateToGameDetails(slug: string) {
     this.router.navigate(['/game-details', slug]);
+  }
+
+  openCreateAccountModal() {
+    const modalRef = this.modalService.open(CreateAccountModalComponent);
+    modalRef.result.then(
+      result => {
+        console.log(result);
+      },
+      reason => {
+        console.log('Dismissed:', reason);
+      }
+    );
   }
 }

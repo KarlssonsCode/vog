@@ -71,6 +71,12 @@
           }}</a>
         </li>
       </ul>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="openCreateAccountModal()">
+        Create Account
+      </button>
       <form class="d-flex" (submit)="onSubmit(loginForm)" #loginForm="ngForm">
         <div class="input-group me-2">
           <input

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { GetUserResponse, UserClient } from '../vog-api';
+import { CreateUserRequest, GetUserResponse, UserClient } from '../vog-api';
 
 @Injectable({
   providedIn: 'root',
@@ -51,5 +51,9 @@ export class UserService {
   setUser(id: number, name: string) {
     this.userId = id;
     this.userName = name;
+  }
+
+  createUser(requestBody: CreateUserRequest): Observable<void> {
+    return this.userClient.createUser(requestBody);
   }
 }

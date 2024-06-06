@@ -650,7 +650,7 @@ export class UserClient {
      * @param body (optional) 
      * @return Success
      */
-    createUser(body: User | undefined): Observable<void> {
+    createUser(body: CreateUserRequest | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/User/CreateUser";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1015,6 +1015,12 @@ export interface CreateCustomUserListRequest {
     userId: number;
     name: string;
     description: string;
+}
+
+export interface CreateUserRequest {
+    username: string;
+    password: string;
+    email: string;
 }
 
 export interface CreateUserReviewRequest {
