@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  CreateCustomUserListGameRequest,
   CustomUserListGameClient,
   GetCustomUserListGameResponse,
 } from '../vog-api';
@@ -15,5 +16,11 @@ export class CustomUserListGameService {
     listId: number
   ): Observable<GetCustomUserListGameResponse[]> {
     return this.customUserListGameClient.getCustomUserListGamesByListId(listId);
+  }
+
+  addGameToCustomList(
+    request: CreateCustomUserListGameRequest
+  ): Observable<void> {
+    return this.customUserListGameClient.addGameToCustomList(request);
   }
 }

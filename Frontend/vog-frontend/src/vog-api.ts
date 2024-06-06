@@ -1003,7 +1003,12 @@ export interface CreateBacklogRequest {
 
 export interface CreateCustomUserListGameRequest {
     customUserListId: number;
-    gameId: number;
+    rawgId: number;
+    rawgTitle: string;
+    backgroundImage: string;
+    releaseDate?: string | undefined;
+    description: string;
+    metacritic?: number | undefined;
 }
 
 export interface CreateCustomUserListRequest {

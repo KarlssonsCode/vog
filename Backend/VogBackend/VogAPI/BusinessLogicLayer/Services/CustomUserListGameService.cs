@@ -16,18 +16,32 @@ namespace BusinessLogicLayer.Services
     public class CustomUserListGameService : ICustomUserListGameService
     {
         private readonly ICustomUserListGameRepository _customUserListGameRepository;
+        private readonly IGameService _gameService;
 
-        public CustomUserListGameService(ICustomUserListGameRepository customUserListGameRepository)
+        public CustomUserListGameService(ICustomUserListGameRepository customUserListGameRepository, IGameService gameService)
         {
             _customUserListGameRepository = customUserListGameRepository;
+            _gameService = gameService;
         }
 
         public async Task AddGameToCustomListAsync(CreateCustomUserListGameRequest customUserListGame)
         {
+            var game = new Game
+            {
+                RawgId = customUserListGame.RawgId,
+                Title = customUserListGame.RawgTitle,
+                BackgroundImage = customUserListGame.BackgroundImage,
+                ReleaseDate = customUserListGame.ReleaseDate,
+                Description = customUserListGame.Description,
+                Metacritic = customUserListGame.Metacritic
+            };
+
+            game = await _gameService.AddGame(game);
+
             var customListGame = new
             {
                 customUserListGame.CustomUserListId,
-                customUserListGame.GameId
+                GameId = game.Id
             }.Adapt<CustomUserListGame>();
 
             await _customUserListGameRepository.AddGameToCustomListAsync(customListGame);

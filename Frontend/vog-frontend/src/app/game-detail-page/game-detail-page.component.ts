@@ -5,10 +5,16 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MetacriticScoreComponent } from '../components/metacritic-score/metacritic-score.component';
 import { BacklogService } from '../../services/backlog.service';
-import { CreateBacklogRequest } from '../../vog-api';
+import {
+  CreateBacklogRequest,
+  CreateCustomUserListGameRequest,
+  GetCustomUserListResponse,
+} from '../../vog-api';
 import { UserService } from '../../services/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReviewModalComponent } from '../components/review-modal/review-modal.component';
+import { CustomUserListService } from '../../services/customUserList.service';
+import { CustomUserListGameService } from '../../services/customUserListGame.service';
 
 @Component({
   selector: 'app-game-detail-page',
@@ -20,12 +26,15 @@ import { ReviewModalComponent } from '../components/review-modal/review-modal.co
 export class GameDetailPageComponent implements OnInit {
   game: RawgGame | null = null;
   userId: number | null = null;
+  customUserLists: GetCustomUserListResponse[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private rawgService: RawgService,
     private userService: UserService,
     private backlogService: BacklogService,
+    private customUserListService: CustomUserListService,
+    private customUserListGameService: CustomUserListGameService,
     private modalService: NgbModal
   ) {}
 
@@ -34,6 +43,7 @@ export class GameDetailPageComponent implements OnInit {
     this.route.params.subscribe(params => {
       const slug = params['slug'];
       this.fetchGameDetails(slug);
+      this.loadLoggedInUserList();
     });
   }
 
@@ -65,6 +75,41 @@ export class GameDetailPageComponent implements OnInit {
     this.backlogService.addGameToBacklog(backlogRequest).subscribe(response => {
       console.log('Game added to backlog', response);
     });
+  }
+
+  loadLoggedInUserList(): void {
+    this.customUserListService
+      .getCustomUserListsById(this.userId!)
+      .subscribe(data => {
+        this.customUserLists = data;
+        console.log(this.customUserLists);
+      });
+  }
+
+  addGameToCustomList(
+    listId: number,
+    rawgId: number,
+    rawgTitle: string,
+    backgroundImage: string,
+    releaseDate: string,
+    description: string,
+    metacritic?: number
+  ) {
+    const customUserListGameRequest: CreateCustomUserListGameRequest = {
+      customUserListId: listId,
+      rawgId: rawgId,
+      rawgTitle: rawgTitle,
+      backgroundImage: backgroundImage,
+      releaseDate: releaseDate,
+      description: description,
+      metacritic: metacritic,
+    };
+    console.log(customUserListGameRequest);
+    this.customUserListGameService
+      .addGameToCustomList(customUserListGameRequest)
+      .subscribe(response => {
+        console.log('Game added to list', response);
+      });
   }
 
   openReviewModal() {

@@ -52,8 +52,23 @@
               Add to list
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-              <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+              <li *ngFor="let list of customUserLists">
+                <button
+                  class="dropdown-item"
+                  (click)="
+                    addGameToCustomList(
+                      list.id,
+                      game.id,
+                      game.name,
+                      game.background_image,
+                      game.released,
+                      game.description_raw,
+                      game.metacritic
+                    )
+                  ">
+                  {{ list.name }}
+                </button>
+              </li>
             </ul>
           </div>
         </div>

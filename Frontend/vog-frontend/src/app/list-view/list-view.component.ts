@@ -58,6 +58,7 @@ export class ListViewComponent implements OnInit {
       .getCustomUserListsById(this.userId!)
       .subscribe(data => {
         this.customUserLists = data;
+        console.log(this.customUserLists);
       });
   }
 
