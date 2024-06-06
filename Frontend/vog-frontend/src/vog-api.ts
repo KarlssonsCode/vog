@@ -1069,6 +1069,7 @@ export interface GetBacklogResponse {
     id: number;
     userId: number;
     gameId: number;
+    rawgId: number;
     title: string;
     backgroundImage: string;
     releaseDate: DateOnly;

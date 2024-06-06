@@ -24,7 +24,12 @@
             <button class="btn btn-danger" (click)="removeFromBacklog(item.id)">
               Remove
             </button>
-            <button class="btn button-add-review">Add Review</button>
+            <button
+              type="button"
+              class="btn button-add-review"
+              (click)="openReviewModal(item)">
+              Add Review
+            </button>
           </div>
         </div>
       </div>

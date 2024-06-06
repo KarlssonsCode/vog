@@ -17,6 +17,8 @@ namespace BusinessLogicLayer.Contracts.Responses
 
         [Required]
         public int GameId { get; set; }
+        [Required]
+        public int RawgId { get; set; }
 
         [Required]
         public string Title { get; set; }

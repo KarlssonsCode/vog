@@ -5,13 +5,20 @@ import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MetacriticScoreComponent } from '../components/metacritic-score/metacritic-score.component';
 import { FormsModule } from '@angular/forms';
+import { ReviewModalComponent } from '../components/review-modal/review-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-backlog-view',
   standalone: true,
   templateUrl: './backlog-view.component.html',
   styleUrl: './backlog-view.component.scss',
-  imports: [CommonModule, MetacriticScoreComponent, FormsModule],
+  imports: [
+    CommonModule,
+    MetacriticScoreComponent,
+    FormsModule,
+    ReviewModalComponent,
+  ],
 })
 export class BacklogViewComponent implements OnInit {
   userId: number | null = null;
@@ -20,7 +27,8 @@ export class BacklogViewComponent implements OnInit {
 
   constructor(
     private backlogService: BacklogService,
-    private userService: UserService
+    private userService: UserService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -51,5 +59,16 @@ export class BacklogViewComponent implements OnInit {
         console.error('Error removing backlog item:', error);
       }
     );
+  }
+
+  openReviewModal(item: GetBacklogResponse) {
+    const modalRef = this.modalService.open(ReviewModalComponent);
+    modalRef.componentInstance.userId = this.userId;
+    modalRef.componentInstance.rawgId = item.rawgId;
+    modalRef.componentInstance.rawgTitle = item.title;
+    modalRef.componentInstance.backgroundImage = item.backgroundImage;
+    modalRef.componentInstance.releaseDate = item.releaseDate;
+    modalRef.componentInstance.description = item.description;
+    modalRef.componentInstance.metacritic = item.metacritic;
   }
 }

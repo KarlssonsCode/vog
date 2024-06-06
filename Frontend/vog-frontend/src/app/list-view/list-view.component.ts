@@ -23,8 +23,8 @@ export class ListViewComponent implements OnInit {
 
   customUserListRequest: CreateCustomUserListRequest = {
     userId: this.userId!,
-    name: 'Insert List name',
-    description: 'Insert a description',
+    name: '',
+    description: '',
   };
 
   constructor(

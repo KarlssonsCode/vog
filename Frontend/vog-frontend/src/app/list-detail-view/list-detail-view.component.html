@@ -1,24 +1,28 @@
-<div *ngIf="games$ | async as games">
-  <div *ngIf="games.length > 0; else noGames">
-    <div *ngFor="let game of games" class="col-lg-4 col-md-6 mb-4">
-      <div class="card">
-        <img
-          [src]="game.backgroundImage"
-          class="card-img-top"
-          alt="{{ game.title }}" />
-        <div class="card-body">
-          <h3 class="card-title">{{ game.title }}</h3>
-          <p><strong>Release Date: </strong>{{ game.releaseDate }}</p>
-          <p>
-            <strong>Metacritic: </strong>
-            <app-metacritic-score
-              [metacritic]="game.metacritic"></app-metacritic-score>
-          </p>
+<div class="container">
+  <div *ngIf="games$ | async as games">
+    <div *ngIf="games.length > 0; else noGames" class="row game-card-layout">
+      <div class="col-md-3" *ngFor="let game of games">
+        <div class="card mb-4">
+          <div class="image-container">
+            <img
+              [src]="game.backgroundImage"
+              class="card-img-top"
+              alt="{{ game.title }}" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ game.title }}</h3>
+            <p><strong>Release Date: </strong>{{ game.releaseDate }}</p>
+            <p>
+              <strong>Metacritic: </strong>
+              <app-metacritic-score
+                [metacritic]="game.metacritic"></app-metacritic-score>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <ng-template #noGames>
+    <p>No games found for this list.</p>
+  </ng-template>
 </div>
-<ng-template #noGames>
-  <p>No games found for this list.</p>
-</ng-template>

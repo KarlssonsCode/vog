@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.Configurations
              .Map(dest => dest.Id, src => src.Id)
              .Map(dest => dest.UserId, src => src.UserId)
              .Map(dest => dest.GameId, src => src.GameId)
+             .Map(dest => dest.RawgId, src => src.Game.RawgId)
              .Map(dest => dest.Title, src => src.Game != null ? src.Game.Title : null)
              .Map(dest => dest.BackgroundImage, src => src.Game != null ? src.Game.BackgroundImage : null)
              .Map(dest => dest.ReleaseDate, src => src.Game != null ? src.Game.ReleaseDate : default)

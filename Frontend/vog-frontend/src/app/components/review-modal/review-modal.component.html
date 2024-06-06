@@ -7,7 +7,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="reviewModalLabel">Create a Review</h5>
+        <h2 class="modal-title" id="reviewModalLabel">Create a Review</h2>
         <button
           type="button"
           class="btn-close"
@@ -36,6 +36,11 @@
               max="100"
               (input)="updateScore($event)" />
           </div>
+          <p>
+            <strong
+              >If this game is in your backlog, it will be removed.
+            </strong>
+          </p>
           <button type="submit" class="btn btn-primary">Submit Review</button>
         </form>
       </div>
