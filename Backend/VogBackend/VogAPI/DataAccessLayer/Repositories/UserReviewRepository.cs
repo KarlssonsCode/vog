@@ -26,6 +26,13 @@ namespace DataAccessLayer.Repositories
                 return existingGameReview;
             }
 
+            var existInBacklog = await _context.Backlogs.FirstOrDefaultAsync(g => g.GameId == userReview.GameId && g.UserId == userReview.UserId);
+
+            if (existInBacklog != null)
+            {
+                _context.Backlogs.Remove(existInBacklog);
+            }
+
             _context.UserReviews.Add(userReview);
             await _context.SaveChangesAsync();
             return userReview;
