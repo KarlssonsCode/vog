@@ -45,6 +45,7 @@ export class ListViewComponent implements OnInit {
         next: () => {
           console.log('Custom list created successfully');
           // Handle success
+          window.location.reload();
         },
         error: err => {
           console.error('Error creating custom list', err);

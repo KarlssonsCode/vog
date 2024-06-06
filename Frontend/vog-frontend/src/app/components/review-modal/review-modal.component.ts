@@ -49,6 +49,7 @@ export class ReviewModalComponent {
     this.userReviewService.createUserReview(request).subscribe({
       next: () => {
         this.activeModal.close('Review submitted');
+        window.location.reload();
       },
       error: err => {
         console.error('Error creating review', err);

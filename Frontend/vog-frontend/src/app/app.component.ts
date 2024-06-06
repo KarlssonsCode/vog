@@ -49,11 +49,9 @@ export class AppComponent implements OnInit {
           response.username
         );
         window.location.reload();
-        // Handle successful login
       },
       error => {
         console.error('AppComponent: Login failed:', error);
-        // Handle login error
       }
     );
   }
