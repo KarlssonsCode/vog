@@ -19,3 +19,39 @@ button {
     background-color: #F7DC6F; 
     color: #000000;
   }
+  .search-container {
+    position: relative;  // Ensures the search results align under the input
+        // Matches width of container
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 100%;           // Positions results directly below the search bar
+    left: 0;
+    right: 0;
+    max-height: 300px;   // Limits height to make it scrollable if needed
+    overflow-y: auto;
+    background-color: #2c3e50; // Dark background for consistency
+    color: #f4d03f;
+    border: 1px solid #1f2626;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    margin-top: 5px;
+    z-index: 10;         // Keeps the dropdown on top of other elements
+  }
+  
+  .search-result-item {
+    padding: 10px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #f4d03f;
+    width: 100%;
+    cursor: pointer;
+  
+    &:hover,
+    &:focus {
+      background-color: #34495e;
+      outline: none;
+    }
+  }

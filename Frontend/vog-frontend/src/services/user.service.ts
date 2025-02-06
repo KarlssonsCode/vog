@@ -56,4 +56,15 @@ export class UserService {
   createUser(requestBody: CreateUserRequest): Observable<void> {
     return this.userClient.createUser(requestBody);
   }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem('userId') !== null;
+  }
+
+  logout(): void {
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
+    this._userId = null;
+    this._userName = '';
+  }
 }

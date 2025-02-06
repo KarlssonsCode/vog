@@ -18,33 +18,37 @@
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <form class="d-flex">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-        (input)="onInputChange($event)" />
-      <div class="dropdown" *ngIf="showDropdown && searchResults.length > 0">
+    <div class="search-container custom-margin">
+      <!-- Search Bar -->
+      <form class="d-flex">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search games"
+          aria-label="Search"
+          (input)="onInputChange($event)" />
+
+        <!-- Loading Spinner -->
+        <div
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm text-primary ms-2"
+          role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </form>
+
+      <!-- Inline Results Container -->
+      <div
+        *ngIf="showDropdown && searchResults.length > 0"
+        class="search-results">
         <button
-          class="btn btn-outline-light dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Select a game
+          *ngFor="let game of searchResults"
+          class="search-result-item"
+          (click)="navigateToGameDetails(game.slug)">
+          {{ game.name }}
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li *ngFor="let game of searchResults">
-            <button
-              class="dropdown-item"
-              (click)="navigateToGameDetails(game.slug)">
-              {{ game.name }}
-            </button>
-          </li>
-        </ul>
       </div>
-    </form>
+    </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -72,12 +76,17 @@
         </li>
       </ul>
       <button
+        *ngIf="!isLoggedIn"
         type="button"
         class="btn btn-primary"
         (click)="openCreateAccountModal()">
         Create Account
       </button>
-      <form class="d-flex" (submit)="onSubmit(loginForm)" #loginForm="ngForm">
+      <form
+        *ngIf="!isLoggedIn"
+        class="d-flex"
+        (submit)="onSubmit(loginForm)"
+        #loginForm="ngForm">
         <div class="input-group me-2">
           <input
             type="email"
@@ -98,6 +107,13 @@
           <button class="btn btn-outline-light" type="submit">Login</button>
         </div>
       </form>
+
+      <button
+        *ngIf="isLoggedIn"
+        class="btn btn-outline-light"
+        (click)="logout()">
+        Logout
+      </button>
     </div>
   </div>
 </nav>

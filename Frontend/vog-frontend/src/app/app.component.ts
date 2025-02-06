@@ -9,6 +9,7 @@ import { GetUserResponse } from '../vog-api';
 import { RawgGame } from '../rawg-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAccountModalComponent } from './components/create-account-modal/create-account-modal.component';
+import { debounceTime, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,8 @@ export class AppComponent implements OnInit {
   showDropdown: boolean = false;
   userName: string = '';
   userId: number | null = null;
+  isLoggedIn: boolean = false;
+  private searchSubject: Subject<string> = new Subject();
 
   constructor(
     private rawgService: RawgService,
@@ -35,8 +38,30 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.userService.isLoggedIn();
     this.userName = this.userService.userName;
     this.userId = this.userService.userId;
+
+    // Subscribe to the search subject with debounce
+    this.searchSubject
+      .pipe(
+        debounceTime(300),
+        switchMap(query => {
+          this.loading = true;
+          return this.rawgService.searchGames(query);
+        })
+      )
+      .subscribe(
+        (data: any) => {
+          this.searchResults = data.results;
+          this.showDropdown = this.searchResults.length > 0;
+          this.loading = false;
+        },
+        error => {
+          console.error('Search failed:', error);
+          this.loading = false;
+        }
+      );
   }
 
   login(email: string, password: string): void {
@@ -56,6 +81,11 @@ export class AppComponent implements OnInit {
     );
   }
 
+  logout() {
+    this.userService.logout();
+    window.location.reload();
+  }
+
   onSubmit(form: NgForm): void {
     if (form.valid) {
       const { email, password } = form.value;
@@ -73,22 +103,19 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onInputChange(event: any) {
-    const query = event.target.value;
+  onInputChange(event: Event): void {
+    const query = (event.target as HTMLInputElement).value;
+    this.searchQuery = query;
     if (query.length > 2) {
-      this.loading = true;
-      this.rawgService.searchGames(query).subscribe((data: any) => {
-        this.searchResults = data.results;
-        this.loading = false;
-        this.showDropdown = true;
-      });
+      this.searchSubject.next(query);
     } else {
       this.searchResults = [];
       this.showDropdown = false;
+      this.loading = false;
     }
   }
 
-  navigateToGameDetails(slug: string) {
+  navigateToGameDetails(slug: string): void {
     this.router.navigate(['/game-details', slug]);
   }
 

@@ -23,6 +23,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class BacklogViewComponent implements OnInit {
   userId: number | null = null;
   userName: string = '';
+  backlogAmount: number | null = null;
   backlogItems: GetBacklogResponse[] = [];
 
   constructor(
@@ -41,6 +42,7 @@ export class BacklogViewComponent implements OnInit {
     this.backlogService.getUserBacklog(this.userId!).subscribe(
       data => {
         this.backlogItems = data;
+        this.countBacklogGames();
       },
       error => {
         console.error('Error fetching backlog:', error);
@@ -54,11 +56,20 @@ export class BacklogViewComponent implements OnInit {
         this.backlogItems = this.backlogItems.filter(
           item => item.id !== backlogId
         );
+        this.countBacklogGames();
       },
       error => {
         console.error('Error removing backlog item:', error);
       }
     );
+  }
+
+  orderBacklogByMetacriticScore(): void {
+    this.backlogItems.sort((a, b) => b.metacritic - a.metacritic);
+  }
+
+  countBacklogGames(): void {
+    this.backlogAmount = this.backlogItems.length;
   }
 
   openReviewModal(item: GetBacklogResponse) {
