@@ -1,6 +1,6 @@
 <div class="container">
   <div class="backlog-title">
-    <h1>{{ userName }}'s Backlog</h1>
+    <h1 class="fw-bold">{{ userName }}'s Backlog</h1>
     <h4>{{ backlogAmount }} games in the backlog.</h4>
     <div class="btn-group">
       <button
@@ -9,12 +9,6 @@
         (click)="orderBacklogByMetacriticScore()">
         Order by Metacritic Score
       </button>
-      <!-- <button
-        type="button"
-        class="btn button-add-review"
-        (click)="orderBacklogByMetacriticScore()">
-        Order by Metacritic Score
-      </button> -->
     </div>
   </div>
   <div
@@ -29,7 +23,7 @@
             alt="{{ item.title }}" />
         </div>
         <div class="card-body">
-          <h3 class="card-title">{{ item.title }}</h3>
+          <h3 class="card-title fw-bold">{{ item.title }}</h3>
           <p>
             <strong>Metacritic: </strong>
             <app-metacritic-score

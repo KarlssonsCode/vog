@@ -13,12 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   standalone: true,
   templateUrl: './backlog-view.component.html',
   styleUrl: './backlog-view.component.scss',
-  imports: [
-    CommonModule,
-    MetacriticScoreComponent,
-    FormsModule,
-    ReviewModalComponent,
-  ],
+  imports: [CommonModule, MetacriticScoreComponent, FormsModule],
 })
 export class BacklogViewComponent implements OnInit {
   userId: number | null = null;

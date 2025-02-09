@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid custom-margin">
     <a href="#">
       <img
@@ -40,7 +40,7 @@
       <!-- Inline Results Container -->
       <div
         *ngIf="showDropdown && searchResults.length > 0"
-        class="search-results">
+        class="search-results overflow-auto">
         <button
           *ngFor="let game of searchResults"
           class="search-result-item"

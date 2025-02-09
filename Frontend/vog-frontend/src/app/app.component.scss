@@ -4,7 +4,8 @@
 }
 
 nav {
-    background-color:#1f2626;
+    background-color:#ffffff;
+    font-weight: bold;
 }
 
 button {
@@ -27,14 +28,15 @@ button {
   .search-results {
     position: absolute;
     top: 100%;           // Positions results directly below the search bar
-    left: 0;
-    right: 0;
     max-height: 300px;   // Limits height to make it scrollable if needed
+    overflow-x: hidden;
     overflow-y: auto;
-    background-color: #2c3e50; // Dark background for consistency
+    scrollbar-width: thin;
+    scrollbar-color: #f4d03f #ffffff;
+    background-color: #ffffff; 
     color: #f4d03f;
-    border: 1px solid #1f2626;
-    border-radius: 4px;
+    border: 2px solid #1a1a1a;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     margin-top: 5px;
     z-index: 10;         // Keeps the dropdown on top of other elements
@@ -45,13 +47,13 @@ button {
     text-align: left;
     background: none;
     border: none;
-    color: #f4d03f;
+    color: #000000;
     width: 100%;
     cursor: pointer;
   
     &:hover,
     &:focus {
-      background-color: #34495e;
+      background-color: #dbdbdb;
       outline: none;
     }
   }

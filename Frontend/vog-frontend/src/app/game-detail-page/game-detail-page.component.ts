@@ -19,7 +19,7 @@ import { CustomUserListGameService } from '../../services/customUserListGame.ser
 @Component({
   selector: 'app-game-detail-page',
   standalone: true,
-  imports: [CommonModule, MetacriticScoreComponent, ReviewModalComponent],
+  imports: [CommonModule, MetacriticScoreComponent],
   templateUrl: './game-detail-page.component.html',
   styleUrl: './game-detail-page.component.scss',
 })
