@@ -2,50 +2,72 @@
   <div class="backlog-title">
     <h1 class="fw-bold">{{ userName }}'s Backlog</h1>
     <h4>{{ backlogAmount }} games in the backlog.</h4>
-    <div class="btn-group">
+    <div class="dropdown">
       <button
+        class="btn button-add-review dropdown-toggle"
         type="button"
-        class="btn button-add-review"
-        (click)="orderBacklogByMetacriticScore()">
-        Order by Metacritic Score
+        id="dropdownMenuButton"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Order by
       </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>
+          <button
+            type="button"
+            class="dropdown-item"
+            (click)="orderBacklogByMetacriticScore()">
+            Metacritic
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="dropdown-item"
+            (click)="orderBacklogByTitle()">
+            Title
+          </button>
+        </li>
+      </ul>
     </div>
-  </div>
-  <div
-    *ngIf="backlogItems && backlogItems.length > 0; else noBacklog"
-    class="row game-card-layout">
-    <div class="col-md-3" *ngFor="let item of backlogItems">
-      <div class="card mb-4">
-        <div class="image-container">
-          <img
-            [src]="item.backgroundImage"
-            class="card-img-top"
-            alt="{{ item.title }}" />
-        </div>
-        <div class="card-body">
-          <h3 class="card-title fw-bold">{{ item.title }}</h3>
-          <p>
-            <strong>Metacritic: </strong>
-            <app-metacritic-score
-              [metacritic]="item.metacritic"></app-metacritic-score>
-          </p>
-          <div class="button-container">
-            <button class="btn btn-danger" (click)="removeFromBacklog(item.id)">
-              Remove
-            </button>
-            <button
-              type="button"
-              class="btn button-add-review"
-              (click)="openReviewModal(item)">
-              Add Review
-            </button>
+    <div
+      *ngIf="backlogItems && backlogItems.length > 0; else noBacklog"
+      class="row game-card-layout">
+      <div class="col-md-3" *ngFor="let item of backlogItems">
+        <div class="card mb-4">
+          <div class="image-container">
+            <img
+              [src]="item.backgroundImage"
+              class="card-img-top"
+              alt="{{ item.title }}" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title fw-bold">{{ item.title }}</h3>
+            <p>
+              <strong>Metacritic: </strong>
+              <app-metacritic-score
+                [metacritic]="item.metacritic"></app-metacritic-score>
+            </p>
+            <div class="button-container">
+              <button
+                class="btn btn-danger"
+                (click)="removeFromBacklog(item.id)">
+                Remove
+              </button>
+              <button
+                type="button"
+                class="btn button-add-review"
+                (click)="openReviewModal(item)">
+                Add Review
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <ng-template #noBacklog>
-    <p>No backlog items found.</p>
-  </ng-template>
+    <ng-template #noBacklog>
+      <p>No backlog items found.</p>
+    </ng-template>
+  </div>
 </div>

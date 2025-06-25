@@ -59,6 +59,8 @@ namespace PresentationLayer
 
             app.UseAuthorization();
 
+            app.UseCors("AllowLocalhost4200");
+
             app.UseCors(builder =>
             {
                 builder

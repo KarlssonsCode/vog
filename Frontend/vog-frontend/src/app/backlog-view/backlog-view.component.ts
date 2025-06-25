@@ -37,6 +37,7 @@ export class BacklogViewComponent implements OnInit {
     this.backlogService.getUserBacklog(this.userId!).subscribe(
       data => {
         this.backlogItems = data;
+        this.orderBacklogByTitle();
         this.countBacklogGames();
       },
       error => {
@@ -61,6 +62,10 @@ export class BacklogViewComponent implements OnInit {
 
   orderBacklogByMetacriticScore(): void {
     this.backlogItems.sort((a, b) => b.metacritic - a.metacritic);
+  }
+
+  orderBacklogByTitle(): void {
+    this.backlogItems.sort((a, b) => a.title.localeCompare(b.title));
   }
 
   countBacklogGames(): void {
