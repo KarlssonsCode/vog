@@ -16,7 +16,7 @@ export class RawgService {
   getStartingPageGames(): Observable<RawgGame[]> {
     // const gamesUrl = `${this.API_URL}games?dates=2023-01-01%2C2024-12-31&key=${this.API_KEY}&ordering=-metacritic`;
     // const gamesUrl = `${this.API_URL}games?dates=2023-01-01%2C2024-12-31&key=${this.API_KEY}&metacritic=80,100`;
-    const gamesUrl = `${this.API_URL}games?dates=2024-06-01%2C2025-12-31&key=${this.API_KEY}&ordering=-added`;
+    const gamesUrl = `${this.API_URL}games?dates=2025-01-01%2C2025-12-31&key=${this.API_KEY}&ordering=-added`;
 
     return this.http
       .get<{ results: RawgGame[] }>(gamesUrl)

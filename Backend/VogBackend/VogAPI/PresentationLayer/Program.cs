@@ -1,77 +1,99 @@
-
+using System.Text;
 using BusinessLogicLayer.Configurations;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
 using DataAccessLayer;
 using DataAccessLayer.Interface;
 using DataAccessLayer.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace PresentationLayer
 {
-    public class Program
+  public class Program
+  {
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+      var builder = WebApplication.CreateBuilder(args);
+
+      builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+      );
+
+      var jwt = builder.Configuration.GetSection("Jwt");
+
+      // JWT Middleware
+      builder
+        .Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwt["Issuer"],
+            ValidAudience = jwt["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]!))
+          };
+        });
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+      builder.Services.AddAuthorization();
 
+      // Add services to the container.
+      builder.Services.AddScoped<IUserService, UserService>();
+      builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+      builder.Services.AddScoped<IBacklogService, BacklogService>();
+      builder.Services.AddScoped<IBacklogRepository, BacklogRepository>();
 
-            // Add services to the container.
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
+      builder.Services.AddScoped<IGameService, GameService>();
+      builder.Services.AddScoped<IGameRepository, GameRepository>();
 
-            builder.Services.AddScoped<IBacklogService, BacklogService>();
-            builder.Services.AddScoped<IBacklogRepository, BacklogRepository>();
+      builder.Services.AddScoped<ICustomUserListService, CustomUserListService>();
+      builder.Services.AddScoped<ICustomUserListRepository, CustomUserListRepository>();
 
-            builder.Services.AddScoped<IGameService, GameService>();
-            builder.Services.AddScoped<IGameRepository, GameRepository>();
+      builder.Services.AddScoped<ICustomUserListGameService, CustomUserListGameService>();
+      builder.Services.AddScoped<ICustomUserListGameRepository, CustomUserListGameRepository>();
 
-            builder.Services.AddScoped<ICustomUserListService, CustomUserListService>();
-            builder.Services.AddScoped<ICustomUserListRepository, CustomUserListRepository>();
+      builder.Services.AddScoped<IUserReviewService, UserReviewService>();
+      builder.Services.AddScoped<IUserReviewRepository, UserReviewRepository>();
 
-            builder.Services.AddScoped<ICustomUserListGameService, CustomUserListGameService>();
-            builder.Services.AddScoped<ICustomUserListGameRepository, CustomUserListGameRepository>();
+      builder.Services.AddScoped<AuthService>();
 
-            builder.Services.AddScoped<IUserReviewService, UserReviewService>();
-            builder.Services.AddScoped<IUserReviewRepository, UserReviewRepository>();
+      builder.Services.AddControllers();
 
-            builder.Services.AddControllers();
+      MappingConfigurations.ConfigureMappings();
+      // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+      builder.Services.AddEndpointsApiExplorer();
+      builder.Services.AddSwaggerGen();
 
-            MappingConfigurations.ConfigureMappings();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+      var app = builder.Build();
 
+      // Configure the HTTP request pipeline.
+      if (app.Environment.IsDevelopment())
+      {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+      }
 
-            var app = builder.Build();
+      app.UseHttpsRedirection();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+      app.UseAuthentication();
+      app.UseAuthorization();
 
-            app.UseHttpsRedirection();
+      app.UseCors("AllowLocalhost4200");
 
-            app.UseAuthorization();
+      app.UseCors(builder =>
+      {
+        builder.WithOrigins(app.Configuration["AllowedOrigins"]).AllowAnyHeader().AllowAnyMethod();
+      });
 
-            app.UseCors("AllowLocalhost4200");
+      app.MapControllers();
 
-            app.UseCors(builder =>
-            {
-                builder
-                    .WithOrigins(app.Configuration["AllowedOrigins"])
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-            });
-
-            app.MapControllers();
-
-            app.Run();
-        }
+      app.Run();
     }
+  }
 }
